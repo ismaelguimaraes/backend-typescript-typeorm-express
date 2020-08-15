@@ -1,4 +1,5 @@
 node_modules
 development.env
 dist/
+src/config/auth.ts
 ormconfig.json
