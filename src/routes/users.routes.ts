@@ -1,10 +1,20 @@
 import { Router } from 'express'
 
+import UserReposity from '../repositories/UserRepository'
+
 import CreateUserService from '../services/User/CreateUserService'
 import DeleteUserService from '../services/User/DeleteUserService'
 import ensureAuthenticated from '../middlewares/ensureAuthenticated'
+import { getCustomRepository } from 'typeorm'
 
 const usersRouter = Router();
+
+usersRouter.get('/', async (request, response) => {
+    const userRepository = getCustomRepository(UserReposity);
+    const users = await userRepository.find();
+
+    return response.json(users);
+})
 
 usersRouter.delete('/:id', ensureAuthenticated, async (request, response) => {
 
