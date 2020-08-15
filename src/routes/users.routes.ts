@@ -6,9 +6,7 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated'
 
 const usersRouter = Router();
 
-usersRouter.use(ensureAuthenticated);
-
-usersRouter.delete('/:id', async (request, response) => {
+usersRouter.delete('/:id', ensureAuthenticated, async (request, response) => {
 
     if(!request.user.isAdmin) {
         return response.status(401).json({ message: 'Unauthorized user.'});
@@ -22,7 +20,7 @@ usersRouter.delete('/:id', async (request, response) => {
     return response.status(202).json({ message: 'User deleted.'})
 })
 
-usersRouter.post('/', async (request, response) => {
+usersRouter.post('/', ensureAuthenticated, async (request, response) => {
 
     if(!request.user.isAdmin) {
         return response.status(401).json({ message: 'Unauthorized user.'});
