@@ -9,6 +9,15 @@ import { getCustomRepository } from 'typeorm'
 
 const usersRouter = Router();
 
+usersRouter.get('/:id', async (request, response) => {
+    const userRepository = getCustomRepository(UserReposity);
+    const { id } = request.params;
+
+    const users = await userRepository.find({ where: { id } });
+
+    return response.json(users);
+})
+
 usersRouter.get('/', async (request, response) => {
     const userRepository = getCustomRepository(UserReposity);
     const users = await userRepository.find();
