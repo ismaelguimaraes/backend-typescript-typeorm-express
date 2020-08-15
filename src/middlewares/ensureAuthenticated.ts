@@ -27,6 +27,8 @@ export default function ensureAuthenticated(request: Request, response: Response
             id: sub,
             isAdmin
         }
+
+        return next();
     } catch {
         throw new Error("Invalid JWT token.");
     }

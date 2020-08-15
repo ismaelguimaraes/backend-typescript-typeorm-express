@@ -2,10 +2,18 @@ import { Router } from 'express'
 
 import CreateUserService from '../services/User/CreateUserService'
 import DeleteUserService from '../services/User/DeleteUserService'
+import ensureAuthenticated from '../middlewares/ensureAuthenticated'
 
 const usersRouter = Router();
 
+usersRouter.use(ensureAuthenticated);
+
 usersRouter.delete('/:id', async (request, response) => {
+
+    if(!request.user.isAdmin) {
+        return response.status(401).json({ message: 'Unauthorized user.'});
+    }
+
     const { id } = request.params;
     const deleteUser = new DeleteUserService;
 
@@ -15,6 +23,11 @@ usersRouter.delete('/:id', async (request, response) => {
 })
 
 usersRouter.post('/', async (request, response) => {
+
+    if(!request.user.isAdmin) {
+        return response.status(401).json({ message: 'Unauthorized user.'});
+    }
+    
     const { name, email, password, cpf, telephone, isAdmin } = request.body;
     const createUser = new CreateUserService();
 
