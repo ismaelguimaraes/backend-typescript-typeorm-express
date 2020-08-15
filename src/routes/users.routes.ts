@@ -1,8 +1,18 @@
 import { Router } from 'express'
 
 import CreateUserService from '../services/CreateUserService'
+import DeleteUserService from '../services/DeleteUserService'
 
 const usersRouter = Router();
+
+usersRouter.delete('/:id', async (request, response) => {
+    const { id } = request.params;
+    const deleteUser = new DeleteUserService;
+
+    await deleteUser.execute({ id });
+
+    return response.status(202).json({ message: 'User deleted.'})
+})
 
 usersRouter.post('/', async (request, response) => {
     const { name, email, password, cpf, telephone, isAdmin } = request.body;

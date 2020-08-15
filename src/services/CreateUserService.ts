@@ -2,7 +2,6 @@ import { getRepository } from 'typeorm'
 import { hash } from 'bcryptjs'
 
 import User from '../models/User'
-import { response } from 'express';
 
 interface Request {
     name: string;
