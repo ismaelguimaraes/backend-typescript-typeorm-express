@@ -1,11 +1,11 @@
 import { Router } from 'express'
+import { getCustomRepository } from 'typeorm'
 
 import UserReposity from '../repositories/UserRepository'
 
 import CreateUserService from '../services/User/CreateUserService'
 import DeleteUserService from '../services/User/DeleteUserService'
 import ensureAuthenticated from '../middlewares/ensureAuthenticated'
-import { getCustomRepository } from 'typeorm'
 
 const usersRouter = Router();
 
