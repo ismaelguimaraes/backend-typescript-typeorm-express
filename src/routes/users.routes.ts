@@ -1,13 +1,17 @@
 import { Router } from 'express'
 import { getCustomRepository } from 'typeorm'
+import multer from 'multer';
 
 import UserReposity from '../repositories/UserRepository'
 
 import CreateUserService from '../services/User/CreateUserService'
 import DeleteUserService from '../services/User/DeleteUserService'
 import ensureAuthenticated from '../middlewares/ensureAuthenticated'
+import uploadConfig from '../config/upload'
+import UpdateUserAvatarService from '../services/User/UpdateUserAvatarService';
 
 const usersRouter = Router();
+const upload = multer(uploadConfig);
 
 usersRouter.get('/:id', async (request, response) => {
     const userRepository = getCustomRepository(UserReposity);
@@ -37,7 +41,7 @@ usersRouter.delete('/:id', ensureAuthenticated, async (request, response) => {
     await deleteUser.execute({ id });
 
     return response.status(202).json({ message: 'User deleted.'})
-})
+});
 
 usersRouter.post('/', ensureAuthenticated, async (request, response) => {
 
@@ -60,6 +64,19 @@ usersRouter.post('/', ensureAuthenticated, async (request, response) => {
     delete user.password;
 
     return response.status(201).json(user);
+});
+
+usersRouter.patch('/avatar', ensureAuthenticated, upload.single('picture'), async(request, response) => {
+    const updateUserAvatar = new UpdateUserAvatarService();
+
+    const user = await updateUserAvatar.execute({
+        user_id: request.user.id,
+        pictureFilename: request.file.filename
+    });
+
+    delete user.password;
+
+    return response.status(202).json(user);
 });
 
 export default usersRouter;
