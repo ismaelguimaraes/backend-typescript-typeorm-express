@@ -23,6 +23,9 @@ class User {
     @Column("boolean")
     isAdmin: boolean;
 
+    @Column("varchar")
+    picture: string;
+
     @CreateDateColumn()
     created_at: Date;
 

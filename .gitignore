@@ -3,3 +3,9 @@ development.env
 dist/
 src/config/auth.ts
 ormconfig.json
+
+tmp/*/*
+!tmp/*/.gitkeep
+
+src/logs/*/*
+!src/*/.gitkeep
