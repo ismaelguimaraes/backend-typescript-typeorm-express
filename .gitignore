@@ -6,3 +6,6 @@ ormconfig.json
 
 tmp/*/*
 !tmp/*/.gitkeep
+
+src/logs/*/*
+!src/*/.gitkeep

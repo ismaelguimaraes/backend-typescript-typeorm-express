@@ -1,6 +1,8 @@
 import { Router } from 'express'
 import { getCustomRepository } from 'typeorm'
 import multer from 'multer';
+import fs from 'fs'
+import path from 'path'
 
 import UserReposity from '../repositories/UserRepository'
 
@@ -59,6 +61,11 @@ usersRouter.post('/', ensureAuthenticated, async (request, response) => {
         cpf,
         telephone,
         isAdmin
+    });
+
+    const data = new Uint8Array(Buffer.from(`O Administrador ${request.user.id} criou o usuário:\n\nID: ${user.id};\nNome: ${user.name};\nE-mail: ${user.email};\nCPF: ${user.cpf};\nTelefone: ${user.telephone};\nData: ${user.created_at};`));
+    fs.writeFile(path.resolve(__dirname, '..', 'logs', 'users', `${user.id}.txt`), data, (err) => {
+        if (err) throw err;
     });
 
     delete user.password;
