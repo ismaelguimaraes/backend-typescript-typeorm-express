@@ -6,9 +6,9 @@
     An enterprise resource planning and management application that allows the company to control from its users to their financial flow.
 </h4>
 
-## Technologies
+## :computer: Technologies
 
-This project was developed with the following technologies
+This project was developed with the following technologies.
 
 |                                                                                                  |          |
 | ------------------------------------------------------------------------------------------------ | :------: | 
