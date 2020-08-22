@@ -10,7 +10,7 @@
 
 This project was developed with the following technologies
 
-| Dependencies                                                                                                |
+|                                                                                                  |          |
 | ------------------------------------------------------------------------------------------------ | :------: | 
 | [typescript](https://https://www.typescriptlang.org/)                       | ^3.9.7 |
 | [ts-node-dev](https://www.npmjs.com/package/ts-node-dev)                    | ^1.0.0-pre.56 | 
